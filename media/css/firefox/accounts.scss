@@ -139,12 +139,11 @@ html[dir="rtl"] .main-copy {
 
 .fxa-cta {
     background: #fff;
-    background: #fff;
     border-radius: 6px;
     margin: 0 auto;
     max-width: 400px;
-    text-align: center;
     padding-top: 40px;
+    text-align: center;
 
     @media #{$mq-desktop} {
         float: right;
@@ -167,9 +166,10 @@ html[dir="rtl"] .fxa-cta {
 #fxa {
     @include transition(height 0.25s ease);
     border: none;
-    overflow: hidden;
-    max-width: 400px;
     margin: 0 auto;
+    max-width: 400px;
+    min-height: 300px;
+    overflow: hidden;
 
     @media #{$mq-desktop} {
         width: 400px;
@@ -180,8 +180,8 @@ html[dir="rtl"] .fxa-cta {
 // Signed-in messaging.
 
 .signed-in {
-    min-height: 30px;
     margin-top: 20px;
+    min-height: 30px;
 
     &:before {
         @include at2x('/media/img/firefox/accounts/green-check.png', 30px, 30px);
@@ -235,7 +235,7 @@ html[dir="rtl"] .signed-in {
 
 
 // Hide the everything first!
-#fxa,
+.fxa-cta,
 .signed-in,
 .sign-up-instructions,
 .firefox-ios,
@@ -249,17 +249,27 @@ html[dir="rtl"] .signed-in {
     display: none;
 }
 
-// Non-eligible FxA states get single column.
-.no-js,
-.state-non-firefox,
-.state-old-firefox,
-.state-firefox-ios,
-.state-firefox-android,
-.state-mobile {
-    .main-copy,
-    .fxa-cta {
-        float: none;
-        margin: 0 auto 40px;
+// Non-eligible FxA states get single column for both LTR and RTL locales.
+html[dir="ltr"],
+html[dir="rtl"] {
+    &.no-js,
+    .state-non-firefox,
+    .state-old-firefox,
+    .state-firefox-ios,
+    .state-firefox-android,
+    .state-mobile {
+        .main-copy,
+        .fxa-cta {
+            float: none;
+            margin: 0 auto 40px;
+        }
+
+        .main-copy {
+            @media #{$mq-desktop} {
+                text-align: center;
+                background-position: top center;
+            }
+        }
     }
 }
 
@@ -273,7 +283,7 @@ html[dir="rtl"] .signed-in {
 
 // Firefox desktop users see the FxA iframe.
 .state-firefox-up-to-date {
-    #fxa {
+    .fxa-cta {
         display: block;
     }
 }
